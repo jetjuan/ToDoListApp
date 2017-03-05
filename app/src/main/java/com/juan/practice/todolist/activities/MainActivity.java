@@ -37,24 +37,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        fabNewTodo = (FloatingActionButton) findViewById(R.id.fab_new_todo);
-        fabNewTodo.setOnClickListener(fabNewTodoClick);
-
-        //Just to ensure that the DB is created
-        db.getInstance();
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-
+    private void refreshContentLayout(){
         scrollContent = (LinearLayout) findViewById(R.id.scrollContent);
         scrollContent.removeAllViews();
 
@@ -102,8 +85,8 @@ public class MainActivity extends AppCompatActivity {
 
                                 Toast toast = Toast.makeText( getApplicationContext(), "ToDo deleted.", Toast.LENGTH_LONG );
                                 toast.show();
-                                //TODO create a method that refreshes 
-                                MainActivity.this.recreate();
+                                //TODO create a method that refreshes
+                                refreshContentLayout();
                             }
                         });
                         alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -121,7 +104,26 @@ public class MainActivity extends AppCompatActivity {
                 scrollContent.addView(myItem);
             }
         }
+    }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        fabNewTodo = (FloatingActionButton) findViewById(R.id.fab_new_todo);
+        fabNewTodo.setOnClickListener(fabNewTodoClick);
+
+        //Just to ensure that the DB is created
+        db.getInstance();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        refreshContentLayout();
     }
 
     @Override
