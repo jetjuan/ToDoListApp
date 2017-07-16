@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 txtLastUpdate.setText(date);
 
 
-                Button editBtn = (Button) myItem.findViewById(R.id.editButton);
+                ImageButton editBtn = (ImageButton) myItem.findViewById(R.id.editButton);
                 editBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-                Button deleteBtn = (Button) myItem.findViewById(R.id.deleteButton);
+                ImageButton deleteBtn = (ImageButton) myItem.findViewById(R.id.deleteButton);
                 deleteBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -141,9 +142,9 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }

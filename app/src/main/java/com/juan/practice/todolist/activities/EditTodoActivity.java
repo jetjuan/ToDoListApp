@@ -1,6 +1,7 @@
 package com.juan.practice.todolist.activities;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.ContactsContract;
@@ -8,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -77,6 +79,9 @@ public class EditTodoActivity extends AppCompatActivity {
                 alert.show();
             }
 
+//            getActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         }
     };
 
@@ -109,10 +114,30 @@ public class EditTodoActivity extends AppCompatActivity {
             editTodoTitle.setText(currentTodo.getTitle());
             editTodoNotes.setText(currentTodo.getNotes());
             checkBoxCompleted.setChecked(currentTodo.isCompleted());
+        }else{
+            showSoftKeyboard();
         }
 
 
     }
 
+    public void showSoftKeyboard(){
+        InputMethodManager inputMethodManager =
+                (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 
+        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+    }
+
+    public void hideSoftKeyboard(){
+        InputMethodManager inputMethodManager =
+                (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        hideSoftKeyboard();
+    }
 }
